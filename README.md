@@ -25,10 +25,22 @@ or manually add this repository by using the "three-dots-menu" at the top right 
 ### Configuration
 Configure the sensor(s) in ``configuration.yaml``. 
 ```
-sensor:
-  - platform: binance
-    symbols:
-      - BTCUSDT
-      - ETHUSDT
-      - ...
+- platform: binance
+  symbols:
+    - BTCUSDT
+    - ETHUSDT
+- platform: template
+  sensors:
+    cena_btc:
+      value_template: '{{ (states("sensor.binance_ticker_btcusdt")) | round(0)}}'
+      friendly_name: 'BTCUSDt'
+      unit_of_measurement: 'USD'
+      device_class: monetary
+      icon_template: mdi:currency-btc
+    cena_eth:
+      value_template: '{{ (states("sensor.binance_ticker_ethusdt")) | round(0)}}'
+      friendly_name: 'ETHUSDt'
+      unit_of_measurement: 'USD'
+      device_class: monetary
+      icon_template: mdi:currency-eth
 ```
